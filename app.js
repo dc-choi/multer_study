@@ -3,6 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const multer = require('multer');
+const fs = require('fs');
+const stream = require('stream');
 
 const app = express();
 
@@ -49,7 +51,24 @@ const upload = multer({
 app.post('/upload', upload.array('imgs'), async (req, res) => {
 	console.log(req.files);
 	console.log(req.body);
+
 	res.status(200).json({ result: 'OK' });
+});
+
+app.get('/download', async (req, res) => {
+    const r = fs.createReadStream(`uploads/imgs/8SdUoatCJrXIxXKr0f2TYLYEIvoxoa0q.test.jpg`);
+    const ps = new stream.PassThrough();
+    stream.pipeline(r, ps, (err) => {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(400); 
+        }
+    });
+    ps.pipe(res);
+});
+
+app.get('/download2', async (req, res) => {
+    res.sendFile(`${__dirname}/uploads/imgs/8SdUoatCJrXIxXKr0f2TYLYEIvoxoa0q.test.jpg`);
 });
 
 module.exports = app;
