@@ -3,6 +3,7 @@
 <head>
   <title>Express</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -27,6 +28,25 @@
   <form method="GET" action="/download2">
     <input type="submit">
   </form>
+
+  <input type="button" id="a" value="qwer">
+  <form method="GET" action="">
+    
+  </form>
 </body>
+<script>
+$('#a').on('click', () => {
+  $.ajax({
+      type: 'GET',
+      // contentType: 'application/json; charset=utf-8',
+      headers: { authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFzZGYiLCJ0aW1lU3RhbXAiOiIyMDIyLTExLTAyVDAwOjAzOjA3Ljk5NFoiLCJpYXQiOjE2NjczNDczODcsImV4cCI6MTY2NzM5MDU4N30.5KmLJwEr8xYUwUinSjYQQeZwT9Z-q4CUCAKB8-NTOy0` },
+      url: 'http://localhost:9000/v1/files/8',
+      success: (data) => {
+      },
+      error: (error) => {
+      }
+  });
+});
+</script>
 
 </html>
